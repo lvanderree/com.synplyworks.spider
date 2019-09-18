@@ -1,0 +1,6 @@
+.vscode/
+.history/
+src/test.ts
+src/stubbedDevices.ts
+lib/test.js
+lib/stubbedDevices.js

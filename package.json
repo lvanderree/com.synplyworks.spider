@@ -1,0 +1,18 @@
+{
+  "name": "com.synplyworks.spider",
+  "version": "1.0.0",
+  "description": "control your Itho Daalderop Spiders via its gateway",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leon van der Ree",
+  "license": "ISC"
+}

@@ -1,0 +1,178 @@
+{
+  "id": "com.synplyworks.spider",
+  "version": "0.1.0",
+  "compatibility": ">=2.0.0",
+  "sdk": 2,
+  "brandColor": "#1040a1",
+  "name": {
+    "en": "Spider",
+    "nl": "Spider"
+  },
+  "description": {
+    "en": "control your Itho Daalderop Spiders via its gateway",
+    "nl": "stuur je Itho Daalderop Spiders aan via de gateway"
+  },
+  "category": [
+    "climate"
+  ],
+  "tags": {
+    "en": [
+      "spider",
+      "itho",
+      "daalderop",
+      "fan",
+      "thermostat"
+    ],
+    "nl": [
+      "spider",
+      "itho",
+      "daalderop",
+      "fan",
+      "ventilator",
+      "thermostaat"
+    ]
+  },
+  "permissions": [
+  ],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Leon van der Ree",
+    "email": "leon@synplyworks.com"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "lvanderree"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/lvanderree/com.synplyworks.spider/issues"
+  },
+  "capabilities": {
+    "fan_speed": {
+      "type": "enum",
+      "values": [
+        {
+          "id": "Low",
+          "title": {
+            "en": "Low"
+          }
+        },
+        {
+          "id": "Medium",
+          "title": {
+            "en": "Medium"
+          }
+        },
+        {
+          "id": "High",
+          "title": {
+            "en": "High"
+          }
+        },
+        {
+          "id": "Auto",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "Boost 10",
+          "title": {
+            "en": "Boost 10"
+          }
+        },
+        {
+          "id": "Boost 20",
+          "title": {
+            "en": "Boost 20"
+          }
+        },
+        {
+          "id": "Boost 30",
+          "title": {
+            "en": "Boost 30"
+          }
+        }
+      ],
+      "title": {
+        "en": "Fan speed",
+        "nl": "Ventilator snelheid"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "uiQuickAction": true,
+      "insights": true,
+      "insightsTitleTrue": { "en": "Fan speed" }
+    }
+  },
+  "drivers": [
+    {
+      "id": "fan",
+      "name": {
+        "en": "fan",
+        "nl": "fan"
+      },
+      "class": "fan",
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "General settings"
+          },
+          "children": [
+            {
+              "id": "username",
+              "type": "text",
+              "label": {
+                "en": "Username",
+                "nl": "Wachtwoord"
+              },
+              "value": ""
+            },
+            {
+              "id": "password",
+              "type": "password",
+              "label": {
+                "en": "Password",
+                "nl": "Wachtwoord"
+              },
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "capabilities": [ "fan_speed" ],
+      "pair": [
+        {
+          "id": "login",
+          "template": "login_credentials",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+
+      "images": {
+        "large": "/drivers/fan/assets/images/large.png",
+        "small": "/drivers/fan/assets/images/small.png"
+      }
+    }
+  ]
+}
