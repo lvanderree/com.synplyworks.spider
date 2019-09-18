@@ -35,8 +35,8 @@
   "permissions": [
   ],
   "images": {
-    "large": "/assets/images/large.png",
-    "small": "/assets/images/small.png"
+    "large": "/assets/images/spiderlogo-large.png",
+    "small": "/assets/images/spiderlogo-small.png"
   },
   "author": {
     "name": "Leon van der Ree",
@@ -170,8 +170,8 @@
       ],
 
       "images": {
-        "large": "/drivers/fan/assets/images/large.png",
-        "small": "/drivers/fan/assets/images/small.png"
+        "large": "/drivers/fan/assets/images/itho-fan-large.png",
+        "small": "/drivers/fan/assets/images/itho-fan-small.png"
       }
     }
   ]
