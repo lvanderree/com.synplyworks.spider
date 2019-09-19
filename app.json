@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -32,8 +32,7 @@
       "thermostaat"
     ]
   },
-  "permissions": [
-  ],
+  "permissions": [],
   "images": {
     "large": "/assets/images/spiderlogo-large.png",
     "small": "/assets/images/spiderlogo-small.png"
@@ -101,30 +100,34 @@
         }
       ],
       "title": {
-        "en": "Fan speed",
-        "nl": "Ventilator snelheid"
+        "en": "Ventilation speed",
+        "nl": "Ventilatie snelheid"
       },
       "getable": true,
       "setable": true,
       "uiComponent": "picker",
       "uiQuickAction": true,
       "insights": true,
-      "insightsTitleTrue": { "en": "Fan speed" }
+      "insightsTitleTrue": {
+        "en": "Ventilation speed",
+        "nl": "Ventilatie snelheid"
+      }
     }
   },
   "drivers": [
     {
       "id": "fan",
       "name": {
-        "en": "fan",
-        "nl": "fan"
+        "en": "Fan",
+        "nl": "Ventilator"
       },
       "class": "fan",
       "settings": [
         {
           "type": "group",
           "label": {
-            "en": "General settings"
+            "en": "mijn.ithodaalderop account",
+            "nl": "mijn.ithodaalderop account"
           },
           "children": [
             {
@@ -148,28 +151,92 @@
           ]
         }
       ],
-      "capabilities": [ "fan_speed" ],
+      "capabilities": [
+        "fan_speed"
+      ],
+      "pair": [
+        {
+          "id": "login",
+          "template": "login_credentials"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/fan/assets/images/itho-fan-large.png",
+        "small": "/drivers/fan/assets/images/itho-fan-small.png"
+      }
+    },
+    {
+      "id": "thermostat",
+      "name": {
+        "en": "Spider Thermostat",
+        "nl": "Spider Thermostaat"
+      },
+      "class": "thermostat",
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "mijn.ithodaalderop account",
+            "nl": "mijn.ithodaalderop account"
+          },
+          "children": [
+            {
+              "id": "username",
+              "type": "text",
+              "label": {
+                "en": "Username",
+                "nl": "Wachtwoord"
+              },
+              "value": ""
+            },
+            {
+              "id": "password",
+              "type": "password",
+              "label": {
+                "en": "Password",
+                "nl": "Wachtwoord"
+              },
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "capabilities": [
+        "target_temperature",
+        "measure_temperature",
+        "thermostat_mode"
+      ],
       "pair": [
         {
           "id": "login",
           "template": "login_credentials",
-          "navigation": {
-            "next": "list_devices"
+          "options": {
+            "logo": "/assets/images/spiderlogo-large.png"
           }
         },
         {
           "id": "list_devices",
           "template": "list_devices",
           "navigation": {
-            "next": "add_my_devices"
+            "next": "add_devices"
           }
         },
         {
-          "id": "add_my_devices",
+          "id": "add_devices",
           "template": "add_devices"
         }
       ],
-
       "images": {
         "large": "/drivers/fan/assets/images/itho-fan-large.png",
         "small": "/drivers/fan/assets/images/itho-fan-small.png"

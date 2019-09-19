@@ -14,6 +14,7 @@ export class ClientManager {
     if (this.devices == undefined)
     {
       this.devices = await this.client.getDevices();
+      // todo loop through devices and create object with key=device.id 
     }
     
     return this.devices; 
@@ -45,6 +46,21 @@ export class ClientManager {
       });
   }
 
+  getSpider(id: string) : Promise<Device> {
+    return this.getDevices()
+      .then(devices => {
+        if (devices instanceof Array) {
+          return devices.find(d => {
+            return (d.type = 105) && 
+                   (d.manufacturer == 'spider') && 
+                   (d.id == id)
+          });
+        }
+    
+        return null;
+      });
+  }
+
   getSpiderWithFan() : Promise<Device> {
     return this.getDevices()
       .then(devices => {
@@ -66,23 +82,50 @@ export class ClientManager {
    * @param speed    Set the fanspeed. Either 'Auto', 'Low', 'Medium', 'High', 'Boost 10', 'Boost 20', 'Boost 30'
    */
   async setFanSpeed(device: Device, speed: string) : Promise<Device> {
-    // console.log(' trying to set fan speed');
+    const FanSpeed = device.properties.find(p => p.id === 'FanSpeed');
 
-    var found = false;
-    device.properties.forEach(property => {
-      if (property['id'] == 'FanSpeed') {
-        found = true;
-
-        property.status = speed.charAt(0).toUpperCase() + speed.slice(1).toLowerCase() ;
-        property.statusModified = true;
-      }
-    });
-
-    if (!found) {
+    if (!FanSpeed) {
       throw new Error(`device "${device.name}" has no FanSpeed property`);
     }
 
+    FanSpeed.status = speed.charAt(0).toUpperCase() + speed.slice(1).toLowerCase() ;
+    FanSpeed.statusModified = true;
+
     // console.log('update to send: ', JSON.stringify(device));
+
+    const response = await this.client.updateDevice(device);
+    // console.log(response.properties[2]);
+    return response;
+  }
+
+  async setTargetTemperature(device: Device, temperature: number) : Promise<Device> {
+    const SetpointTemperature = device.properties.find(p => p.id === 'SetpointTemperature');
+
+    if (!SetpointTemperature) {
+      throw new Error(`device "${device.name}" has no SetpointTemperature property`);
+    }
+
+    SetpointTemperature.status = temperature;
+    SetpointTemperature.statusModified = true;
+
+    // console.log('update to send: ', JSON.stringify(device));
+
+    const response = await this.client.updateDevice(device);
+    // console.log(response.properties[2]);
+    return response;
+  }
+
+  async setOperationMode(device: Device, mode: string) : Promise<Device> {
+    const OperationMode = device.properties.find(p => p.id === 'OperationMode');
+    
+    if (!OperationMode) {
+      throw new Error(`device "${device.name}" has no OperationMode property`);
+    }
+    
+    OperationMode.status = mode;
+    OperationMode.statusModified = true;
+
+    console.log('update to send: ', JSON.stringify(device));
 
     const response = await this.client.updateDevice(device);
     // console.log(response.properties[2]);

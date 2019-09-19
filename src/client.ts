@@ -144,7 +144,7 @@ export class Client {
     form.append('password', this.password);
     form.append('grant_type', 'password');
 
-    // console.log('authenticating at: ', AUTHENTICATE_URL);
+    // console.log('authenticating at: ', AUTHENTICATE_URL, form);
 
     const response = await fetch(AUTHENTICATE_URL, {
       method: 'POST',

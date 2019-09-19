@@ -4,20 +4,26 @@ const Homey = require('homey');
 const Client = require('../../lib/client');
 var ClientManager = require("../../lib/clientManager");
 
-
-class MyDevice extends Homey.Device {
+class Fan extends Homey.Device {
 	
 	onInit() {
-		this.fanspeed = "Auto";
-
-		this.log('MyDevice has been inited');
+		this.log('Initializing Itho Fan');
 		this.log('Name:', this.getName());
 		this.log('Class:', this.getClass());
+		this.log('Data:', this.getData());
 
 		const settings = this.getSettings();
 
 		const client = new Client["default"](settings.username, settings.password);
 		const cm = new ClientManager["default"](client);
+
+		// init fan_speed to current speed
+		cm.getSpiderWithFan().then(spider => {
+			const fanSpeed = spider.properties.find(p => p.id === 'FanSpeed');
+
+			console.log('retreived current fan_speed of '+this.getName(), fanSpeed);
+			this.setCapabilityValue('fan_speed', Number(fanSpeed.status));
+		});
 
 		// register a capability listener
 		this.registerCapabilityListener('fan_speed', async (value) => {
@@ -30,9 +36,7 @@ class MyDevice extends Homey.Device {
 			});
 
 		});
-
 	}
 	
 }
-
-module.exports = MyDevice;
+module.exports = Fan;

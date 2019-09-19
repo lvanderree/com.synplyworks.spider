@@ -4,10 +4,11 @@ const Homey = require('homey');
 const Client = require('../../lib/client');
 var ClientManager = require("../../lib/clientManager");
 
-class FanDriver extends Homey.Driver {
+
+class ThermostatDriver extends Homey.Driver {
 	
 	onInit() {
-		this.log('FanDriver has been inited');
+		this.log('ThermostatDriver has been inited');
 	}
 
 	onPair( socket ) {
@@ -17,7 +18,7 @@ class FanDriver extends Homey.Driver {
 		socket.on('login', ( data, callback ) => {
 			username = data.username;
 			password = data.password;
-
+			
 			const client = new Client["default"](username, password);
 			client.testCredentials()
 				.then(credentialsAreValid => {
@@ -38,21 +39,32 @@ class FanDriver extends Homey.Driver {
 			const client = new Client["default"](username, password);
 			const cm = new ClientManager["default"](client);
 
-			cm.getSpiderWithFan()
-			.then(spider => {
-				const devices = [{
-					name: "fan_" + spider.name,
-					data: {
-						type: 'spider_fan',
-						id: spider.id,
-					},
-					settings: {
-						// Store username & password in settings
-						// so the user can change them later
-						username,
-						password
-					}
-				}];
+			cm.getSpiders()
+			.then(spiders => {
+				const devices = spiders.map(spider => {
+					const setpointTemperature = spider.properties.find(property => { return property.id === 'SetpointTemperature'; });
+
+					return {
+						name: spider.name,
+						data: {
+							type: 'spider_thermostat',
+							id: spider.id,
+						},
+						settings: {
+							// Store username & password in settings
+							// so the user can change them later
+							username,
+							password
+						},
+						"capabilitiesOptions": { 
+							"target_temperature": {
+								"min": setpointTemperature.min,
+								"max": setpointTemperature.max,
+								"step": setpointTemperature.step
+							} 
+						},
+					};
+				});
 
 				callback( null, devices );
 			});
@@ -62,29 +74,5 @@ class FanDriver extends Homey.Driver {
     });
   }
 
-	onPairListDevices( data, callback ) {
-    const devices = [
-      {
-        // Required properties:
-        "data": { "id": "fan" },
-
-        // Optional properties, these overwrite those specified in app.json:
-        // "name": "My Device",
-        // "icon": "/my_icon.svg", // relative to: /drivers/<driver_id>/assets/
-        // "capabilities": [ "onoff", "dim" ],
-        // "capabilitiesOptions: { "onoff": {} },
-
-        // Optional properties, device-specific:
-        // "store": { "foo": "bar" },
-        "settings": { "username": "", "password": "password" },
-
-      }
-    ];
-
-    callback( null, devices );
-
-  }
-	
 }
-
-module.exports = FanDriver;
+module.exports = ThermostatDriver;
