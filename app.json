@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -238,8 +238,8 @@
         }
       ],
       "images": {
-        "large": "/drivers/fan/assets/images/itho-fan-large.png",
-        "small": "/drivers/fan/assets/images/itho-fan-small.png"
+        "large": "/drivers/thermostat/assets/images/itho-spider-large.png",
+        "small": "/drivers/thermostat/assets/images/itho-spider-small.png"
       }
     }
   ]
