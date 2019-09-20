@@ -157,7 +157,10 @@
       "pair": [
         {
           "id": "login",
-          "template": "login_credentials"
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/spiderlogo-small.png"
+          }
         },
         {
           "id": "list_devices",
@@ -222,7 +225,7 @@
           "id": "login",
           "template": "login_credentials",
           "options": {
-            "logo": "/assets/images/spiderlogo-large.png"
+            "logo": "../../../assets/images/spiderlogo-small.png"
           }
         },
         {
