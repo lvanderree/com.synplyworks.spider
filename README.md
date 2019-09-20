@@ -32,10 +32,11 @@ features on the wishlist:
 
 ## Version
 
-0.2.1 fixed path to spider images
-0.2.0 added support for spider thermostat
-0.1.1 fixed some app metadata
-0.1.0 initial release to control itho fan
+* 0.2.2 updated images
+* 0.2.1 fixed path to spider images
+* 0.2.0 added support for spider thermostat
+* 0.1.1 fixed some app metadata
+* 0.1.0 initial release to control itho fan
 
 ## Final note
 
