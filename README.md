@@ -20,18 +20,18 @@ Current features that are implemented:
 * find the spiders
 * control the fan via Homey
 * read out and control the thermostat (temperature and operation mode) via Homey
+* refresh every 5 minutes
 
 ## TODO’s
 
 features on the wishlist:
 
-* poll state (or subscribe for changes if possible)
 * reauthenticate when token is expired
 * implemented the connected smartmeter
-* add correct icons
 
 ## Version
 
+* 0.3.0 implemented refresh functionality; fixed some bugs; Use icons of Itho
 * 0.2.2 updated images
 * 0.2.1 fixed path to spider images
 * 0.2.0 added support for spider thermostat

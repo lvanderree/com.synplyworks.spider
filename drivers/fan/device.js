@@ -4,6 +4,8 @@ const Homey = require('homey');
 const Client = require('../../lib/client');
 var ClientManager = require("../../lib/clientManager");
 
+const POLL_INTERVAL = 1000 * 60 * 5; // 5 min
+
 class Fan extends Homey.Device {
 	
 	onInit() {
@@ -15,26 +17,33 @@ class Fan extends Homey.Device {
 		const settings = this.getSettings();
 
 		const client = new Client["default"](settings.username, settings.password);
-		const cm = new ClientManager["default"](client);
+		this.cm = new ClientManager["default"](client);
 
 		// init fan_speed to current speed
-		cm.getSpiderWithFan().then(spider => {
-			const fanSpeed = spider.properties.find(p => p.id === 'FanSpeed');
+		this.updateFanspeed = this.updateFanspeed.bind(this);
 
-			console.log('retreived current fan_speed of '+this.getName(), fanSpeed);
-			this.setCapabilityValue('fan_speed', Number(fanSpeed.status));
-		});
-
+		this.updateFanspeed();
+		this._syncInterval = setInterval(this.updateFanspeed, POLL_INTERVAL);
+		
 		// register a capability listener
 		this.registerCapabilityListener('fan_speed', async (value) => {
 			console.log('adjusting fanSpeed...');
 			
-			cm.getSpiderWithFan().then(spider => {
-				cm.setFanSpeed(spider, value).then(device => {
+			this.cm.getSpiderWithFan().then(spider => {
+				this.cm.setFanSpeed(spider, value).then(device => {
 					console.log('updated fanSpeed to: ', device.properties[2]);
 				})
 			});
 
+		});
+	}
+
+	updateFanspeed() {
+		this.cm.getSpiderWithFan().then(spider => {
+			const FanSpeed = spider.properties.find(p => p.id === 'FanSpeed');
+
+			console.log('retreived current fan_speed of '+this.getName(), FanSpeed.status);
+			this.setCapabilityValue('fan_speed', FanSpeed.status);
 		});
 	}
 	

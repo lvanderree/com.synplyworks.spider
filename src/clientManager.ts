@@ -4,16 +4,18 @@ export class ClientManager {
   protected client: Client;
 
   protected devices: Device[] = undefined; 
+  updateAt: number;
 
   constructor(client: Client) {
     this.client = client;
   }
 
   async getDevices() : Promise<Device[]> {
-    // the manager caches devices
-    if (this.devices == undefined)
+    // the manager caches devices for 30s, to avoid flooding Itho
+    if ((this.devices == undefined) || ((Date.now() - this.updateAt) > 30000))
     {
       this.devices = await this.client.getDevices();
+      this.updateAt = Date.now();
       // todo loop through devices and create object with key=device.id 
     }
     
