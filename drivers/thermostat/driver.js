@@ -15,6 +15,7 @@ class ThermostatDriver extends Homey.Driver {
 		let username = '';
 		let password = '';
 
+		// TODO: DRY
 		socket.on('login', ( data, callback ) => {
 			username = data.username;
 			password = data.password;

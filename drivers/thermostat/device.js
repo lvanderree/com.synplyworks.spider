@@ -25,11 +25,10 @@ class Thermostat extends Homey.Device {
 		this.updateThermostatValues();
 		this._syncInterval = setInterval(this.updateThermostatValues, POLL_INTERVAL);
 
-		// register a capability listener
+		// register capability listeners
 		this.registerCapabilityListener('target_temperature', async (value) => {
 			console.log('adjusting target_temperature at ' + this.getName(), value);
-			
-			this.cm.getSpider(this.getData()['id']).then(spider => {
+			this.cm.getDevice(this.getData()['id']).then(spider => {
 				this.cm.setTargetTemperature(spider, value).then(device => {
 					console.log('updated temperature at ' + this.getName() + ' to: ', device);
 				});
@@ -38,17 +37,26 @@ class Thermostat extends Homey.Device {
 
 		this.registerCapabilityListener('thermostat_mode', async (value) => {
 			console.log('adjusting thermostat_mode at ' + this.getName(), value);
-			
-			this.cm.getSpider(this.getData()['id']).then(spider => {
+			this.cm.getDevice(this.getData()['id']).then(spider => {
 				this.cm.setOperationMode(spider, value).then(device => {
 					console.log('updated operation mode at ' + this.getName() + ' to: ', device);
 				});
 			});
 		});
+
+		this.registerCapabilityListener('itho_override_mode', async (value) => {
+			console.log('adjusting override_mode at ' + this.getName(), value);
+			this.cm.getDevice(this.getData()['id']).then(spider => {
+				this.cm.setOverrideMode(spider, value).then(device => {
+					console.log('updated override mode at ' + this.getName() + ' to: ', device);
+				});
+			});
+		});
+
 	}
 
 	updateThermostatValues() {
-		this.cm.getSpider(this.getData()['id']).then(spider => {
+		this.cm.getDevice(this.getData()['id']).then(spider => {
 			const SetpointTemperature = spider.properties.find(p => p.id === 'SetpointTemperature');
 			console.log('retreived current target_temperature of '+this.getName(), SetpointTemperature.status);
 			this.setCapabilityValue('target_temperature', Number(SetpointTemperature.status));
@@ -60,6 +68,14 @@ class Thermostat extends Homey.Device {
 			const OperationMode = spider.properties.find(p => p.id === 'OperationMode' );
 			console.log('retreived current operation mode at '+this.getName(), OperationMode.status);
 			this.setCapabilityValue('thermostat_mode', OperationMode.status.toLowerCase());
+
+			const OverrideMode = spider.properties.find(p => p.id === 'OverrideMode' );
+			console.log('retreived current zone demand at '+this.getName(), OverrideMode.status);
+			this.setCapabilityValue('itho_override_mode', OverrideMode.status);
+
+			const ZoneDemand = spider.properties.find(p => p.id === 'ZoneDemand' );
+			console.log('retreived current zone demand at '+this.getName(), ZoneDemand.status);
+			this.setCapabilityValue('itho_zone_demand', Number(ZoneDemand.status));
 		});
 	}
 

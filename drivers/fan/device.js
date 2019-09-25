@@ -29,7 +29,7 @@ class Fan extends Homey.Device {
 		this.registerCapabilityListener('fan_speed', async (value) => {
 			console.log('adjusting fanSpeed...');
 			
-			this.cm.getSpiderWithFan().then(spider => {
+			this.cm.getDevice(this.getData()['id']).then(spider => {
 				this.cm.setFanSpeed(spider, value).then(device => {
 					console.log('updated fanSpeed to: ', device.properties[2]);
 				})
@@ -39,7 +39,7 @@ class Fan extends Homey.Device {
 	}
 
 	updateFanspeed() {
-		this.cm.getSpiderWithFan().then(spider => {
+		this.cm.getDevice(this.getData()['id']).then(spider => {
 			const FanSpeed = spider.properties.find(p => p.id === 'FanSpeed');
 
 			console.log('retreived current fan_speed of '+this.getName(), FanSpeed.status);

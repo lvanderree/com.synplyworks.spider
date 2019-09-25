@@ -48,14 +48,12 @@ export class ClientManager {
       });
   }
 
-  getSpider(id: string) : Promise<Device> {
+  getDevice(id: string) : Promise<Device> {
     return this.getDevices()
       .then(devices => {
         if (devices instanceof Array) {
           return devices.find(d => {
-            return (d.type = 105) && 
-                   (d.manufacturer == 'spider') && 
-                   (d.id == id)
+            return (d.id == id)
           });
         }
     
@@ -126,6 +124,23 @@ export class ClientManager {
     
     OperationMode.status = mode;
     OperationMode.statusModified = true;
+
+    console.log('update to send: ', JSON.stringify(device));
+
+    const response = await this.client.updateDevice(device);
+    // console.log(response.properties[2]);
+    return response;
+  }
+
+  async setOverrideMode(device: Device, mode: string) : Promise<Device> {
+    const OverrideMode = device.properties.find(p => p.id === 'OverrideMode');
+    
+    if (!OverrideMode) {
+      throw new Error(`device "${device.name}" has no OverrideMode property`);
+    }
+    
+    OverrideMode.status = mode;
+    OverrideMode.statusModified = true;
 
     console.log('update to send: ', JSON.stringify(device));
 

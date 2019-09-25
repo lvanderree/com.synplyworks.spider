@@ -21,16 +21,19 @@ Current features that are implemented:
 * control the fan via Homey
 * read out and control the thermostat (temperature and operation mode) via Homey
 * refresh every 5 minutes
+* see data at insights
 
 ## TODO’s
 
 features on the wishlist:
 
+* add thermostat property: "itho_override_end_time"
 * reauthenticate when token is expired
 * implemented the connected smartmeter
 
 ## Version
 
+* 0.3.8 fixed and added capabilties "thermostat_mode", "itho_zone_demand" and "itho_override_mode"
 * 0.3.0 implemented refresh functionality; fixed some bugs; Use icons of Itho
 * 0.2.2 updated images
 * 0.2.1 fixed path to spider images

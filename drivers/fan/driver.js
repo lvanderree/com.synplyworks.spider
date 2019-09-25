@@ -14,6 +14,7 @@ class FanDriver extends Homey.Driver {
 		let username = '';
 		let password = '';
 
+		// TODO: DRY
 		socket.on('login', ( data, callback ) => {
 			username = data.username;
 			password = data.password;
@@ -69,8 +70,6 @@ class FanDriver extends Homey.Driver {
         "data": { "id": "fan" },
 
         // Optional properties, these overwrite those specified in app.json:
-        // "name": "My Device",
-        // "icon": "/my_icon.svg", // relative to: /drivers/<driver_id>/assets/
         // "capabilities": [ "onoff", "dim" ],
         // "capabilitiesOptions: { "onoff": {} },
 
