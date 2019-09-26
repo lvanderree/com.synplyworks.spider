@@ -33,6 +33,7 @@ features on the wishlist:
 
 ## Version
 
+* 0.3.9 applied new athom rules for donating
 * 0.3.8 fixed and added capabilties "thermostat_mode", "itho_zone_demand" and "itho_override_mode"
 * 0.3.0 implemented refresh functionality; fixed some bugs; Use icons of Itho
 * 0.2.2 updated images
@@ -46,8 +47,3 @@ features on the wishlist:
 The repository can be found at: https://github.com/lvanderree/com.synplyworks.spider
 
 If you like the app, consider a donation to support development :beer: 
-
-[![Donate][pp-donate-image]][pp-donate-link]
-
-[pp-donate-link]: https://paypal.me/lvanderree
-[pp-donate-image]: https://img.shields.io/badge/Donate-PayPal-green.svg
