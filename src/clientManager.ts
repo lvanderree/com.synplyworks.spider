@@ -88,7 +88,7 @@ export class ClientManager {
       throw new Error(`device "${device.name}" has no FanSpeed property`);
     }
 
-    FanSpeed.status = speed.charAt(0).toUpperCase() + speed.slice(1).toLowerCase() ;
+    FanSpeed.status = speed.charAt(0).toUpperCase() + speed.slice(1).toLowerCase();
     FanSpeed.statusModified = true;
 
     // console.log('update to send: ', JSON.stringify(device));
@@ -122,7 +122,7 @@ export class ClientManager {
       throw new Error(`device "${device.name}" has no OperationMode property`);
     }
     
-    OperationMode.status = mode;
+    OperationMode.status = mode.charAt(0).toUpperCase() + mode.slice(1).toLowerCase() ;;
     OperationMode.statusModified = true;
 
     console.log('update to send: ', JSON.stringify(device));

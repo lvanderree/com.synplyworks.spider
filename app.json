@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -106,7 +106,7 @@
       "getable": true,
       "setable": true,
       "uiComponent": "picker",
-      "uiQuickAction": true,
+      "uiQuickAction": false,
       "insights": true,
       "insightsTitleTrue": {
         "en": "Ventilation speed",
@@ -225,128 +225,6 @@
         "de": "Thermostat-Modus",
         "fr": "Mode thermostat",
         "it": "Modalità termostato"
-      },
-      "$flow": {
-        "triggers": [
-          {
-            "id": "thermostat_mode_changed",
-            "title": {
-              "en": "Thermostat mode has changed",
-              "nl": "Thermostaat modus is veranderd",
-              "de": "Thermostat-Modus hat sich geändert",
-              "fr": "Mode thermostat a été modifié",
-              "it": "La modalità del termostato è cambiata"
-            },
-            "args": [
-              {
-                "name": "thermostat_mode",
-                "type": "dropdown",
-                "values": [
-                  {
-                    "id": "heat",
-                    "title": {
-                      "en": "Heat",
-                      "nl": "Verhitten",
-                      "de": "Heizen",
-                      "fr": "Chauffer",
-                      "it": "Calore"
-                    }
-                  },
-                  {
-                    "id": "cool",
-                    "title": {
-                      "en": "Cool",
-                      "nl": "Koelen",
-                      "de": "Kühlen",
-                      "fr": "Refroidir",
-                      "it": "Raffreddamento"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "conditions": [
-          {
-            "id": "thermostat_mode_is",
-            "title": {
-              "en": "Thermostat mode is",
-              "nl": "Thermostaat modus is",
-              "de": "Thermostat-Modus ist",
-              "fr": "Mode thermostat est",
-              "it": "La modalità del termostato è"
-            },
-            "args": [
-              {
-                "name": "thermostat_mode",
-                "type": "dropdown",
-                "values": [
-                  {
-                    "id": "heat",
-                    "title": {
-                      "en": "Heat",
-                      "nl": "Verhitten",
-                      "de": "Heizen",
-                      "fr": "Chauffer",
-                      "it": "Calore"
-                    }
-                  },
-                  {
-                    "id": "cool",
-                    "title": {
-                      "en": "Cool",
-                      "nl": "Koelen",
-                      "de": "Kühlen",
-                      "fr": "Refroidir",
-                      "it": "Raffreddamento"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        "actions": [
-          {
-            "id": "thermostat_mode_set",
-            "title": {
-              "en": "Set the mode",
-              "nl": "Stel de modus in",
-              "de": "Modus setzen",
-              "fr": "Définir le mode",
-              "it": "Imposta la modalità"
-            },
-            "args": [
-              {
-                "name": "thermostat_mode",
-                "type": "dropdown",
-                "values": [
-                  {
-                    "id": "heat",
-                    "title": {
-                      "en": "Heat",
-                      "nl": "Verhitten",
-                      "de": "Heizen",
-                      "fr": "Chauffer",
-                      "it": "Calore"
-                    }
-                  },
-                  {
-                    "id": "cool",
-                    "title": {
-                      "en": "Cool",
-                      "nl": "Koelen",
-                      "de": "Kühlen",
-                      "fr": "Refroidir",
-                      "it": "Raffreddamento"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
       }
     }
   },
@@ -483,5 +361,264 @@
         "small": "/drivers/thermostat/assets/images/itho-spider-small.png"
       }
     }
-  ]
+  ],
+  "flow": {
+    "triggers": [
+      {
+        "id": "thermostat_mode_changed",
+        "title": {
+          "en": "Thermostat mode has changed",
+          "nl": "Thermostaat modus is veranderd",
+          "de": "Thermostat-Modus hat sich geändert",
+          "fr": "Mode thermostat a été modifié",
+          "it": "La modalità del termostato è cambiata"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=thermostat"
+          },
+          {
+            "name": "thermostat_mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "heat",
+                "title": {
+                  "en": "Heat",
+                  "nl": "Verhitten",
+                  "de": "Heizen",
+                  "fr": "Chauffer",
+                  "it": "Calore"
+                }
+              },
+              {
+                "id": "cool",
+                "title": {
+                  "en": "Cool",
+                  "nl": "Koelen",
+                  "de": "Kühlen",
+                  "fr": "Refroidir",
+                  "it": "Raffreddamento"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "fan_speed_is",
+        "title": {
+          "en": "Ventilation !{{is|isn't}} running at",
+          "nl": "Ventilatie draait !{{op|niet op}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "name": "fan_speed",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Low",
+                "title": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "Medium",
+                "title": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "High",
+                "title": {
+                  "en": "High"
+                }
+              },
+              {
+                "id": "Auto",
+                "title": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "Boost 10",
+                "title": {
+                  "en": "Boost 10"
+                }
+              },
+              {
+                "id": "Boost 20",
+                "title": {
+                  "en": "Boost 20"
+                }
+              },
+              {
+                "id": "Boost 30",
+                "title": {
+                  "en": "Boost 30"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "thermostat_mode_is",
+        "title": {
+          "en": "Thermostat mode !{{is|isn't}}",
+          "nl": "Thermostaat modus !{{is|is niet}}",
+          "de": "Thermostat-Modus !{{ist|ist nicht}}",
+          "fr": "Mode thermostat !{{est|n'est-ce pas}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=thermostat"
+          },
+          {
+            "name": "thermostat_mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "heat",
+                "title": {
+                  "en": "Heat",
+                  "nl": "Verhitten",
+                  "de": "Heizen",
+                  "fr": "Chauffer",
+                  "it": "Calore"
+                }
+              },
+              {
+                "id": "cool",
+                "title": {
+                  "en": "Cool",
+                  "nl": "Koelen",
+                  "de": "Kühlen",
+                  "fr": "Refroidir",
+                  "it": "Raffreddamento"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "set_fan_speed",
+        "title": {
+          "en": "Set the fan speed at..."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=fan"
+          },
+          {
+            "name": "speed",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Low",
+                "title": {
+                  "en": "Low"
+                }
+              },
+              {
+                "id": "Medium",
+                "title": {
+                  "en": "Medium"
+                }
+              },
+              {
+                "id": "High",
+                "title": {
+                  "en": "High"
+                }
+              },
+              {
+                "id": "Auto",
+                "title": {
+                  "en": "Auto"
+                }
+              },
+              {
+                "id": "Boost 10",
+                "title": {
+                  "en": "Boost 10"
+                }
+              },
+              {
+                "id": "Boost 20",
+                "title": {
+                  "en": "Boost 20"
+                }
+              },
+              {
+                "id": "Boost 30",
+                "title": {
+                  "en": "Boost 30"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "thermostat_mode_set",
+        "title": {
+          "en": "Set the mode",
+          "nl": "Stel de modus in",
+          "de": "Modus setzen",
+          "fr": "Définir le mode",
+          "it": "Imposta la modalità"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=thermostat"
+          },
+          {
+            "name": "thermostat_mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "heat",
+                "title": {
+                  "en": "Heat",
+                  "nl": "Verhitten",
+                  "de": "Heizen",
+                  "fr": "Chauffer",
+                  "it": "Calore"
+                }
+              },
+              {
+                "id": "cool",
+                "title": {
+                  "en": "Cool",
+                  "nl": "Koelen",
+                  "de": "Kühlen",
+                  "fr": "Refroidir",
+                  "it": "Raffreddamento"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

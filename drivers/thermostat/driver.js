@@ -9,6 +9,8 @@ class ThermostatDriver extends Homey.Driver {
 	
 	onInit() {
 		this.log('ThermostatDriver has been inited');
+
+		this.flowTriggerThermostatModeChanged = new Homey.FlowCardTriggerDevice('thermostat_mode_changed').register();
 	}
 
 	onPair( socket ) {
@@ -73,7 +75,7 @@ class ThermostatDriver extends Homey.Driver {
       // or fire a callback with Error to show that instead
       // callback( new Error('Something bad has occured!') );
     });
-  }
-
+	}
+	
 }
 module.exports = ThermostatDriver;

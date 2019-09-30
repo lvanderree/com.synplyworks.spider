@@ -19,6 +19,8 @@ class Thermostat extends Homey.Device {
 		const client = new Client["default"](settings.username, settings.password);
 		this.cm = new ClientManager["default"](client);
 
+		this.driver = this.getDriver();
+
 		// init target_temperature to current temperature
 		this.updateThermostatValues = this.updateThermostatValues.bind(this);
 
@@ -66,8 +68,12 @@ class Thermostat extends Homey.Device {
 			this.setCapabilityValue('measure_temperature', Number(AmbientTemperature.status));
 	
 			const OperationMode = spider.properties.find(p => p.id === 'OperationMode' );
-			console.log('retreived current operation mode at '+this.getName(), OperationMode.status);
-			this.setCapabilityValue('thermostat_mode', OperationMode.status.toLowerCase());
+			const mode = OperationMode.status.toLowerCase();
+			console.log('retreived current operation mode at '+this.getName(), mode);
+			if (this.getCapabilityValue('thermostat_mode') != mode) {
+				this.setCapabilityValue('thermostat_mode', mode);
+				this.driver.flowTriggerThermostatModeChanged.trigger(this);
+			}
 
 			const OverrideMode = spider.properties.find(p => p.id === 'OverrideMode' );
 			console.log('retreived current zone demand at '+this.getName(), OverrideMode.status);
