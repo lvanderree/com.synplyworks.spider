@@ -5,7 +5,6 @@ const Client = require('../../lib/client');
 var ClientManager = require("../../lib/clientManager");
 
 const POLL_INTERVAL = 1000 * 60 * 5; // 5 min
-
 class Fan extends Homey.Device {
 	
 	onInit() {
@@ -18,6 +17,8 @@ class Fan extends Homey.Device {
 
 		const client = new Client["default"](settings.username, settings.password);
 		this.cm = new ClientManager["default"](client);
+
+		this.driver = this.getDriver();
 
 		// init fan_speed to current speed
 		this.updateFanspeed = this.updateFanspeed.bind(this);
@@ -41,8 +42,15 @@ class Fan extends Homey.Device {
 	updateFanspeed() {
 		this.cm.getDevice(this.getData()['id']).then(spider => {
 			const FanSpeed = spider.properties.find(p => p.id === 'FanSpeed');
+			const newSpeed = FanSpeed.status;
+			const oldSpeed = this.getCapabilityValue('fan_speed');
+			console.log('retreived current fan_speed of '+this.getName(), oldSpeed, newSpeed);
+			if (oldSpeed != newSpeed) {
+				this.setCapabilityValue('fan_speed', newSpeed);
+				this.driver.flowTriggerFanSpeedChanged.trigger(this, {oldSpeed, newSpeed});
+			}
 
-			console.log('retreived current fan_speed of '+this.getName(), FanSpeed.status);
+
 			this.setCapabilityValue('fan_speed', FanSpeed.status);
 		});
 	}

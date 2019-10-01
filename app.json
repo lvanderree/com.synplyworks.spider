@@ -373,37 +373,69 @@
           "fr": "Mode thermostat a été modifié",
           "it": "La modalità del termostato è cambiata"
         },
+        "tokens": [
+          {
+            "name": "oldMode",
+            "type": "string",
+            "title": {
+              "en": "Old mode"
+            },
+            "example": {
+              "en": "cold"
+            }
+          },
+          {
+            "name": "newMode",
+            "type": "string",
+            "title": {
+              "en": "New mode"
+            },
+            "example": {
+              "en": "heat"
+            }
+          }
+        ],
         "args": [
           {
             "name": "device",
             "type": "device",
             "filter": "driver_id=thermostat"
+          }
+        ]
+      },
+      {
+        "id": "fan_speed_changed",
+        "title": {
+          "en": "Fan speed has changed",
+          "nl": "Ventilator snelheid is veranderd"
+        },
+        "tokens": [
+          {
+            "name": "oldSpeed",
+            "type": "string",
+            "title": {
+              "en": "Old speed"
+            },
+            "example": {
+              "en": "low"
+            }
           },
           {
-            "name": "thermostat_mode",
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "heat",
-                "title": {
-                  "en": "Heat",
-                  "nl": "Verhitten",
-                  "de": "Heizen",
-                  "fr": "Chauffer",
-                  "it": "Calore"
-                }
-              },
-              {
-                "id": "cool",
-                "title": {
-                  "en": "Cool",
-                  "nl": "Koelen",
-                  "de": "Kühlen",
-                  "fr": "Refroidir",
-                  "it": "Raffreddamento"
-                }
-              }
-            ]
+            "name": "newSpeed",
+            "type": "string",
+            "title": {
+              "en": "New speed"
+            },
+            "example": {
+              "en": "high"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=fan"
           }
         ]
       }

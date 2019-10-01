@@ -5,7 +5,6 @@ const Client = require('../../lib/client');
 var ClientManager = require("../../lib/clientManager");
 
 const POLL_INTERVAL = 1000 * 60 * 5; // 5 min
-
 class Thermostat extends Homey.Device {
 	
 	onInit() {
@@ -26,6 +25,7 @@ class Thermostat extends Homey.Device {
 
 		this.updateThermostatValues();
 		this._syncInterval = setInterval(this.updateThermostatValues, POLL_INTERVAL);
+
 
 		// register capability listeners
 		this.registerCapabilityListener('target_temperature', async (value) => {
@@ -68,11 +68,12 @@ class Thermostat extends Homey.Device {
 			this.setCapabilityValue('measure_temperature', Number(AmbientTemperature.status));
 	
 			const OperationMode = spider.properties.find(p => p.id === 'OperationMode' );
-			const mode = OperationMode.status.toLowerCase();
-			console.log('retreived current operation mode at '+this.getName(), mode);
-			if (this.getCapabilityValue('thermostat_mode') != mode) {
-				this.setCapabilityValue('thermostat_mode', mode);
-				this.driver.flowTriggerThermostatModeChanged.trigger(this);
+			const newMode = OperationMode.status.toLowerCase();
+			console.log('retreived current operation mode at '+this.getName(), newMode);
+			const oldMode = this.getCapabilityValue('thermostat_mode');
+			if (oldMode != newMode) {
+				this.setCapabilityValue('thermostat_mode', newMode);
+				this.driver.flowTriggerThermostatModeChanged.trigger(this, {oldMode, newMode});
 			}
 
 			const OverrideMode = spider.properties.find(p => p.id === 'OverrideMode' );

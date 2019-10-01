@@ -8,6 +8,8 @@ class FanDriver extends Homey.Driver {
 	
 	onInit() {
 		this.log('FanDriver has been inited');
+
+		this.flowTriggerFanSpeedChanged = new Homey.FlowCardTriggerDevice('fan_speed_changed').register();
 	}
 
 	onPair( socket ) {

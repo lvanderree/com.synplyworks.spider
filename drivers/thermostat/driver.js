@@ -4,7 +4,6 @@ const Homey = require('homey');
 const Client = require('../../lib/client');
 var ClientManager = require("../../lib/clientManager");
 
-
 class ThermostatDriver extends Homey.Driver {
 	
 	onInit() {
