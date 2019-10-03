@@ -10,6 +10,14 @@ class FanDriver extends Homey.Driver {
 		this.log('FanDriver has been inited');
 
 		this.flowTriggerFanSpeedChanged = new Homey.FlowCardTriggerDevice('fan_speed_changed').register();
+		
+		new Homey.FlowCardCondition('fan_speed_is').register().registerRunListener(async (args, state) => {
+			return (args.device.getCapabilityValue('fan_speed') == args.fan_speed);
+		});
+
+		new Homey.FlowCardAction('set_fan_speed').register().registerRunListener(async (args, state) => {
+			return args.device.setCapabilityValue('fan_speed', args.speed)
+		});
 	}
 
 	onPair( socket ) {

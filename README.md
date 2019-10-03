@@ -22,17 +22,20 @@ Current features that are implemented:
 * read out and control the thermostat (temperature and operation mode) via Homey
 * refresh every 5 minutes
 * see data at insights
+* use your devices in flows (Please notes, because of the polling interval it can take up to 5 minutes before the state is updated)
 
 ## TODO’s
 
 features on the wishlist:
 
+* improve widgets layout
 * add thermostat property: "itho_override_end_time"
 * reauthenticate when token is expired
 * implemented the connected smartmeter
 
 ## Version
 
+* 0.4.0 added several flows
 * 0.3.9 applied new athom rules for donating
 * 0.3.8 fixed and added capabilties "thermostat_mode", "itho_zone_demand" and "itho_override_mode"
 * 0.3.0 implemented refresh functionality; fixed some bugs; Use icons of Itho

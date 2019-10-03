@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.3.10",
+  "version": "0.4.0",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -609,7 +609,7 @@
         ]
       },
       {
-        "id": "thermostat_mode_set",
+        "id": "set_thermostat_mode",
         "title": {
           "en": "Set the mode",
           "nl": "Stel de modus in",

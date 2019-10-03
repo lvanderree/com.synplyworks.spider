@@ -10,6 +10,14 @@ class ThermostatDriver extends Homey.Driver {
 		this.log('ThermostatDriver has been inited');
 
 		this.flowTriggerThermostatModeChanged = new Homey.FlowCardTriggerDevice('thermostat_mode_changed').register();
+
+		new Homey.FlowCardCondition('thermostat_mode_is').register().registerRunListener(async (args, state) => {
+			return (args.device.getCapabilityValue('thermostat_mode') == args.thermostat_mode);
+		});
+
+		new Homey.FlowCardAction('set_thermostat_mode').register().registerRunListener(async (args, state) => {
+			return args.device.setCapabilityValue('thermostat_mode', args.thermostat_mode)
+		});
 	}
 
 	onPair( socket ) {
