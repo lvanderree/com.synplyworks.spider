@@ -35,9 +35,10 @@ features on the wishlist:
 
 ## Version
 
+* 0.4.1 fixed a bug with actions in flows
 * 0.4.0 added several flows
 * 0.3.9 applied new athom rules for donating
-* 0.3.8 fixed and added capabilties "thermostat_mode", "itho_zone_demand" and "itho_override_mode"
+* 0.3.8 fixed and added capabilities "thermostat_mode", "itho_zone_demand" and "itho_override_mode"
 * 0.3.0 implemented refresh functionality; fixed some bugs; Use icons of Itho
 * 0.2.2 updated images
 * 0.2.1 fixed path to spider images

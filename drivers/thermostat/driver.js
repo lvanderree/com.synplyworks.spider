@@ -16,7 +16,9 @@ class ThermostatDriver extends Homey.Driver {
 		});
 
 		new Homey.FlowCardAction('set_thermostat_mode').register().registerRunListener(async (args, state) => {
-			return args.device.setCapabilityValue('thermostat_mode', args.thermostat_mode)
+			console.log('setCapabilityValue(', 'thermostat_mode', args.thermostat_mode);
+			args.device.setCapabilityValue('thermostat_mode', args.thermostat_mode);
+			return args.device.setThermostatMode(args.thermostat_mode);
 		});
 	}
 

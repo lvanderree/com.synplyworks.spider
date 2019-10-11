@@ -26,39 +26,45 @@ class Thermostat extends Homey.Device {
 		this.updateThermostatValues();
 		this._syncInterval = setInterval(this.updateThermostatValues, POLL_INTERVAL);
 
-
 		// register capability listeners
-		this.registerCapabilityListener('target_temperature', async (value) => {
-			console.log('adjusting target_temperature at ' + this.getName(), value);
-			this.cm.getDevice(this.getData()['id']).then(spider => {
-				this.cm.setTargetTemperature(spider, value).then(device => {
-					console.log('updated temperature at ' + this.getName() + ' to: ', device);
-				});
+		this.registerCapabilityListener('target_temperature', async (value) => { this.setTargetTemperature(value); });
+		this.registerCapabilityListener('thermostat_mode', async (value) => { this.setOperationMode(value); });
+		this.registerCapabilityListener('itho_override_mode', async (value) => { this.setOverrideMode(value); });
+	}
+
+	getDevice() {
+		return this.cm.getDevice(this.getData()['id']);
+	}
+
+	setTargetTemperature(target_temperature) {
+		console.log('adjusting target_temperature at ' + this.getName(), target_temperature);
+		this.getDevice().then(spider => {
+			this.cm.setTargetTemperature(spider, target_temperature).then(device => {
+				console.log('updated temperature at ' + this.getName() + ' to: ', device);
 			});
 		});
+	}
 
-		this.registerCapabilityListener('thermostat_mode', async (value) => {
-			console.log('adjusting thermostat_mode at ' + this.getName(), value);
-			this.cm.getDevice(this.getData()['id']).then(spider => {
-				this.cm.setOperationMode(spider, value).then(device => {
-					console.log('updated operation mode at ' + this.getName() + ' to: ', device);
-				});
+	setOperationMode(thermostat_mode) {
+		console.log('adjusting thermostat_mode at ' + this.getName(), thermostat_mode);
+		this.getDevice().then(spider => {
+			this.cm.setOperationMode(spider, thermostat_mode).then(device => {
+				console.log('updated operation mode at ' + this.getName() + ' to: ', device);
 			});
 		});
+	}
 
-		this.registerCapabilityListener('itho_override_mode', async (value) => {
-			console.log('adjusting override_mode at ' + this.getName(), value);
-			this.cm.getDevice(this.getData()['id']).then(spider => {
-				this.cm.setOverrideMode(spider, value).then(device => {
-					console.log('updated override mode at ' + this.getName() + ' to: ', device);
-				});
+	setOverrideMode(override_mode) {
+		console.log('adjusting override_mode at ' + this.getName(), override_mode);
+		this.getDevice().then(spider => {
+			this.cm.setOverrideMode(spider, override_mode).then(device => {
+				console.log('updated override mode at ' + this.getName() + ' to: ', device);
 			});
 		});
-
 	}
 
 	updateThermostatValues() {
-		this.cm.getDevice(this.getData()['id']).then(spider => {
+		this.getDevice().then(spider => {
 			const SetpointTemperature = spider.properties.find(p => p.id === 'SetpointTemperature');
 			console.log('retreived current target_temperature of '+this.getName(), SetpointTemperature.status);
 			this.setCapabilityValue('target_temperature', Number(SetpointTemperature.status));

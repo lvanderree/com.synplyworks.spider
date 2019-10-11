@@ -16,7 +16,9 @@ class FanDriver extends Homey.Driver {
 		});
 
 		new Homey.FlowCardAction('set_fan_speed').register().registerRunListener(async (args, state) => {
-			return args.device.setCapabilityValue('fan_speed', args.speed)
+			console.log('setCapabilityValue(', 'fan_speed', args.speed);
+			args.device.setCapabilityValue('fan_speed', args.speed);
+			return args.device.setFanSpeed(args.speed);
 		});
 	}
 
