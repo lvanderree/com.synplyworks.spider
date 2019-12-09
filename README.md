@@ -35,6 +35,7 @@ features on the wishlist:
 
 ## Version
 
+* 0.4.2 fixed several new athom publish rules
 * 0.4.1 fixed a bug with actions in flows
 * 0.4.0 added several flows
 * 0.3.9 applied new athom rules for donating
@@ -45,9 +46,3 @@ features on the wishlist:
 * 0.2.0 added support for spider thermostat
 * 0.1.1 fixed some app metadata
 * 0.1.0 initial release to control itho fan
-
-## Final note
-
-The repository can be found at: https://github.com/lvanderree/com.synplyworks.spider
-
-If you like the app, consider a donation to support development :beer: 

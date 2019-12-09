@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -9,8 +9,8 @@
     "nl": "Spider"
   },
   "description": {
-    "en": "control your Itho Daalderop Spiders via its gateway",
-    "nl": "stuur je Itho Daalderop Spiders aan via de gateway"
+    "en": "Control your Itho Daalderop Spiders via the gateway",
+    "nl": "Stuur je Itho Daalderop Spiders aan m.b.v. de gateway"
   },
   "category": [
     "climate"
@@ -52,6 +52,7 @@
     "url": "https://github.com/lvanderree/com.synplyworks.spider/issues"
   },
   "homeyCommunityTopicId": 18287,
+  "source": "https://github.com/lvanderree/com.synplyworks.spider",
   "capabilities": {
     "fan_speed": {
       "type": "enum",

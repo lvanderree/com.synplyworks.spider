@@ -1,0 +1,35 @@
+{
+  "0.4.2": {
+    "en": "fixed several new athom publish rules"
+  },
+  "0.4.1": {
+    "en": "fixed a bug with actions in flows"
+  },
+  "0.4.0": {
+    "en": "added several flows"
+  },
+  "0.3.9": {
+    "en": "applied new athom rules for donating"
+  },
+  "0.3.8": {
+    "en": "fixed and added capabilities 'thermostat_mode', 'itho_zone_demand' and 'itho_override_mode'"
+  },
+  "0.3.0": {
+    "en": "implemented refresh functionality; fixed some bugs; Use icons of Itho"
+  },
+  "0.2.2": {
+    "en": "updated images"
+  },
+  "0.2.1": {
+    "en": "fixed path to spider images"
+  },
+  "0.2.0": {
+    "en": "added support for spider thermostat"
+  },
+  "0.1.1": {
+    "en": "fixed some app metadata"
+  },
+  "0.1.0": {
+    "en": "initial release to control itho fan"
+  }
+}
