@@ -60,43 +60,50 @@
         {
           "id": "Low",
           "title": {
-            "en": "Low"
+            "en": "Low",
+            "nl": "Laag"
           }
         },
         {
           "id": "Medium",
           "title": {
-            "en": "Medium"
+            "en": "Medium",
+            "nl": "Midden"
           }
         },
         {
           "id": "High",
           "title": {
-            "en": "High"
+            "en": "High",
+            "nl": "Hoog"
           }
         },
         {
           "id": "Auto",
           "title": {
-            "en": "Auto"
+            "en": "Auto",
+            "nl": "Auto"
           }
         },
         {
           "id": "Boost 10",
           "title": {
-            "en": "Boost 10"
+            "en": "Boost 10",
+            "nl": "Boost 10"
           }
         },
         {
           "id": "Boost 20",
           "title": {
-            "en": "Boost 20"
+            "en": "Boost 20",
+            "nl": "Boost 20"
           }
         },
         {
           "id": "Boost 30",
           "title": {
-            "en": "Boost 30"
+            "en": "Boost 30",
+            "nl": "Boost 30"
           }
         }
       ],
@@ -140,25 +147,29 @@
         {
           "id": "Scheduled",
           "title": {
-            "en": "Scheduled"
+            "en": "Scheduled",
+            "nl": "Schema"
           }
         },
         {
           "id": "Temporary",
           "title": {
-            "en": "Temporary"
+            "en": "Temporary",
+            "nl": "Tijdelijk"
           }
         },
         {
           "id": "Permanent",
           "title": {
-            "en": "Permanent"
+            "en": "Permanent",
+            "nl": "Permanent"
           }
         },
         {
           "id": "EndTime",
           "title": {
-            "en": "EndTime"
+            "en": "EndTime",
+            "nl": "Eindtijd"
           }
         }
       ],
@@ -198,7 +209,7 @@
           "id": "heat",
           "title": {
             "en": "Heat",
-            "nl": "Verhitten",
+            "nl": "Verwarmen",
             "de": "Heizen",
             "fr": "Chauffer",
             "it": "Calore"
@@ -250,7 +261,7 @@
               "type": "text",
               "label": {
                 "en": "Username",
-                "nl": "Wachtwoord"
+                "nl": "Gebruikersnaam"
               },
               "value": ""
             },
@@ -314,7 +325,7 @@
               "type": "text",
               "label": {
                 "en": "Username",
-                "nl": "Wachtwoord"
+                "nl": "Gebruikersnaam"
               },
               "value": ""
             },
@@ -379,20 +390,24 @@
             "name": "oldMode",
             "type": "string",
             "title": {
-              "en": "Old mode"
+              "en": "previous mode",
+              "nl": "voorgaande modus"
             },
             "example": {
-              "en": "cold"
+              "en": "cold",
+              "nl": "koelen"
             }
           },
           {
             "name": "newMode",
             "type": "string",
             "title": {
-              "en": "New mode"
+              "en": "New mode",
+              "nl": "huidige modus"
             },
             "example": {
-              "en": "heat"
+              "en": "heat",
+              "nl": "verwarmen"
             }
           }
         ],
@@ -415,10 +430,12 @@
             "name": "oldSpeed",
             "type": "string",
             "title": {
-              "en": "Old speed"
+              "en": "previous speed",
+              "nl": "voorgaande snelheid"
             },
             "example": {
-              "en": "low"
+              "en": "low",
+              "nl": "laag"
             }
           },
           {
@@ -428,7 +445,8 @@
               "en": "New speed"
             },
             "example": {
-              "en": "high"
+              "en": "high",
+              "nl": "hoog"
             }
           }
         ],
@@ -461,43 +479,50 @@
               {
                 "id": "Low",
                 "title": {
-                  "en": "Low"
+                  "en": "Low",
+                  "nl": "Laag"
                 }
               },
               {
                 "id": "Medium",
                 "title": {
-                  "en": "Medium"
+                  "en": "Medium",
+                  "nl": "Midden"
                 }
               },
               {
                 "id": "High",
                 "title": {
-                  "en": "High"
+                  "en": "High",
+                  "nl": "Hoog"
                 }
               },
               {
                 "id": "Auto",
                 "title": {
-                  "en": "Auto"
+                  "en": "Auto",
+                  "nl": "Auto"
                 }
               },
               {
                 "id": "Boost 10",
                 "title": {
-                  "en": "Boost 10"
+                  "en": "Boost 10",
+                  "nl": "Boost 10"
                 }
               },
               {
                 "id": "Boost 20",
                 "title": {
-                  "en": "Boost 20"
+                  "en": "Boost 20",
+                  "nl": "Boost 20"
                 }
               },
               {
                 "id": "Boost 30",
                 "title": {
-                  "en": "Boost 30"
+                  "en": "Boost 30",
+                  "nl": "Boost 30"
                 }
               }
             ]
@@ -526,7 +551,7 @@
                 "id": "heat",
                 "title": {
                   "en": "Heat",
-                  "nl": "Verhitten",
+                  "nl": "Verwarmen",
                   "de": "Heizen",
                   "fr": "Chauffer",
                   "it": "Calore"
@@ -566,43 +591,50 @@
               {
                 "id": "Low",
                 "title": {
-                  "en": "Low"
+                  "en": "Low",
+                  "nl": "Laag"
                 }
               },
               {
                 "id": "Medium",
                 "title": {
-                  "en": "Medium"
+                  "en": "Medium",
+                  "nl": "Middel"
                 }
               },
               {
                 "id": "High",
                 "title": {
-                  "en": "High"
+                  "en": "High",
+                  "nl": "Hoog"
                 }
               },
               {
                 "id": "Auto",
                 "title": {
-                  "en": "Auto"
+                  "en": "Auto",
+                  "nl": "Auto"
                 }
               },
               {
                 "id": "Boost 10",
                 "title": {
-                  "en": "Boost 10"
+                  "en": "Boost 10",
+                  "nl": "Boost 10"
                 }
               },
               {
                 "id": "Boost 20",
                 "title": {
-                  "en": "Boost 20"
+                  "en": "Boost 20",
+                  "nl": "Boost 20"
                 }
               },
               {
                 "id": "Boost 30",
                 "title": {
-                  "en": "Boost 30"
+                  "en": "Boost 30",
+                  "nl": "Boost 30"
                 }
               }
             ]
@@ -632,7 +664,7 @@
                 "id": "heat",
                 "title": {
                   "en": "Heat",
-                  "nl": "Verhitten",
+                  "nl": "Verwarmen",
                   "de": "Heizen",
                   "fr": "Chauffer",
                   "it": "Calore"
