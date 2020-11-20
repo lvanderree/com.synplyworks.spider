@@ -3,11 +3,11 @@
 const Homey = require('homey');
 
 class Spider extends Homey.App {
-	
-	onInit() {
-		this.log('Spider is running...');
-	}
-	
+
+  onInit() {
+    this.log('Spider is running...');
+  }
+
 }
 
 module.exports = Spider;

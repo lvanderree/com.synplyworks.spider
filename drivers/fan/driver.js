@@ -2,84 +2,84 @@
 
 const Homey = require('homey');
 const Client = require('../../lib/client');
-var ClientManager = require("../../lib/clientManager");
+const ClientManager = require('../../lib/clientManager');
 
 class FanDriver extends Homey.Driver {
-	
-	onInit() {
-		this.log('FanDriver has been inited');
 
-		this.flowTriggerFanSpeedChanged = new Homey.FlowCardTriggerDevice('fan_speed_changed').register();
-		
-		new Homey.FlowCardCondition('fan_speed_is').register().registerRunListener(async (args, state) => {
-			return (args.device.getCapabilityValue('fan_speed') == args.fan_speed);
-		});
+  onInit() {
+    this.log('FanDriver has been inited');
 
-		new Homey.FlowCardAction('set_fan_speed').register().registerRunListener(async (args, state) => {
-			console.log('setCapabilityValue(', 'fan_speed', args.speed);
-			args.device.setCapabilityValue('fan_speed', args.speed);
-			return args.device.setFanSpeed(args.speed);
-		});
-	}
+    this.flowTriggerFanSpeedChanged = new Homey.FlowCardTriggerDevice('fan_speed_changed').register();
 
-	onPair( socket ) {
-		let username = '';
-		let password = '';
+    new Homey.FlowCardCondition('fan_speed_is').register().registerRunListener(async (args, state) => {
+      return (args.device.getCapabilityValue('fan_speed') == args.fan_speed);
+    });
 
-		// TODO: DRY
-		socket.on('login', ( data, callback ) => {
-			username = data.username;
-			password = data.password;
+    new Homey.FlowCardAction('set_fan_speed').register().registerRunListener(async (args, state) => {
+      console.log('setCapabilityValue(', 'fan_speed', args.speed);
+      args.device.setCapabilityValue('fan_speed', args.speed);
+      return args.device.setFanSpeed(args.speed);
+    });
+  }
 
-			const client = new Client["default"](username, password);
-			client.testCredentials()
-				.then(credentialsAreValid => {
-					if( credentialsAreValid === true ) {
-						callback( null, true );
-					} else if( credentialsAreValid === false ) {
-						callback( null, false );
-					} else {
-						throw new Error('Invalid Response');
-					}
-				})
-				.catch(err => {
-					callback(err);
-				});
-		});
+  onPair(socket) {
+    let username = '';
+    let password = '';
 
-    socket.on('list_devices', function( data, callback ) {
-			const client = new Client["default"](username, password);
-			const cm = new ClientManager["default"](client);
+    // TODO: DRY
+    socket.on('login', (data, callback) => {
+      username = data.username;
+      password = data.password;
 
-			cm.getSpiderWithFan()
-			.then(spider => {
-				const devices = [{
-					name: "fan_" + spider.name,
-					data: {
-						type: 'spider_fan',
-						id: spider.id,
-					},
-					settings: {
-						// Store username & password in settings
-						// so the user can change them later
-						username,
-						password
-					}
-				}];
+      const client = new Client['default'](username, password);
+      client.testCredentials()
+        .then(credentialsAreValid => {
+          if (credentialsAreValid === true) {
+            callback(null, true);
+          } else if (credentialsAreValid === false) {
+            callback(null, false);
+          } else {
+            throw new Error('Invalid Response');
+          }
+        })
+        .catch(err => {
+          callback(err);
+        });
+    });
 
-				callback( null, devices );
-			});
+    socket.on('list_devices', (data, callback) => {
+      const client = new Client['default'](username, password);
+      const cm = new ClientManager['default'](client);
+
+      cm.getSpiderWithFan()
+        .then(spider => {
+          const devices = [{
+            name: `fan_${spider.name}`,
+            data: {
+              type: 'spider_fan',
+              id: spider.id,
+            },
+            settings: {
+              // Store username & password in settings
+              // so the user can change them later
+              username,
+              password,
+            },
+          }];
+
+          callback(null, devices);
+        });
 
       // or fire a callback with Error to show that instead
       // callback( new Error('Something bad has occured!') );
     });
   }
 
-	onPairListDevices( data, callback ) {
+  onPairListDevices(data, callback) {
     const devices = [
       {
         // Required properties:
-        "data": { "id": "fan" },
+        data: { id: 'fan' },
 
         // Optional properties, these overwrite those specified in app.json:
         // "capabilities": [ "onoff", "dim" ],
@@ -87,15 +87,14 @@ class FanDriver extends Homey.Driver {
 
         // Optional properties, device-specific:
         // "store": { "foo": "bar" },
-        "settings": { "username": "", "password": "password" },
+        settings: { username: '', password: 'password' },
 
-      }
+      },
     ];
 
-    callback( null, devices );
-
+    callback(null, devices);
   }
-	
+
 }
 
 module.exports = FanDriver;

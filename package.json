@@ -9,9 +9,15 @@
   "dependencies": {
     "node-fetch": "^2.6.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-athom": "^2.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+    "engines": {
+    "node": ">=12.16.1"
   },
   "author": "Leon van der Ree",
   "license": "ISC"
