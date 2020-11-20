@@ -1,4 +1,7 @@
 {
+  "0.4.3": {
+    "en": "included Dutch translations by @koktaildotcom"
+  },
   "0.4.2": {
     "en": "fixed several new athom publish rules"
   },
