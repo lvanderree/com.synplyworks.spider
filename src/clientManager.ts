@@ -22,6 +22,19 @@ export class ClientManager {
     return this.devices; 
   }
 
+  getDevice(id: string) : Promise<Device> {
+    return this.getDevices()
+      .then(devices => {
+        if (devices instanceof Array) {
+          return devices.find(d => {
+            return (d.id == id)
+          });
+        }
+    
+        return null;
+      });
+  }
+
   getThermostats() : Promise<Device[]> {
     return this.getDevices()
       .then(devices => {
@@ -39,7 +52,11 @@ export class ClientManager {
     return this.getDevices()
       .then(devices => {
         if (devices instanceof Array) {
-          const thermostats = devices.filter((d) => {return (d.type = 105) && (d.manufacturer == 'spider') });
+          const thermostats = devices.filter((d) => {
+            return (d.type = 105) 
+            && (d.manufacturer == 'spider') 
+            && d.properties.find(p => {return p.id == 'SetpointTemperature'})
+          });
     
           return thermostats;
         }
@@ -48,27 +65,15 @@ export class ClientManager {
       });
   }
 
-  getDevice(id: string) : Promise<Device> {
-    return this.getDevices()
-      .then(devices => {
-        if (devices instanceof Array) {
-          return devices.find(d => {
-            return (d.id == id)
-          });
-        }
-    
-        return null;
-      });
-  }
-
   getSpiderWithFan() : Promise<Device> {
     return this.getDevices()
       .then(devices => {
         if (devices instanceof Array) {
           return devices.find(d => {
-            return (d.type = 105) && 
-                   (d.manufacturer == 'spider') && 
-                    d.properties.find(p => {return p.id == 'FanSpeed'})
+            return (d.type = 105) 
+                   && (d.manufacturer == 'spider')
+                   && d.properties.find(p => {return p.id == 'SetpointTemperature'}) 
+                   && d.properties.find(p => {return p.id == 'FanSpeed'})
           });
         }
     
@@ -79,7 +84,7 @@ export class ClientManager {
   /**
    * 
    * @param device 
-   * @param speed    Set the fanspeed. Either 'Auto', 'Low', 'Medium', 'High', 'Boost 10', 'Boost 20', 'Boost 30'
+   * @param speed    Set the fanspeed. Either 'Away', 'Auto', 'Low', 'Medium', 'High', 'Boost 10', 'Boost 20', 'Boost 30'
    */
   async setFanSpeed(device: Device, speed: string) : Promise<Device> {
     const FanSpeed = device.properties.find(p => p.id === 'FanSpeed');

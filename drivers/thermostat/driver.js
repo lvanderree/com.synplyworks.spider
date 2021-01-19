@@ -10,9 +10,16 @@ class ThermostatDriver extends Homey.Driver {
     this.log('ThermostatDriver has been inited');
 
     this.flowTriggerThermostatModeChanged = new Homey.FlowCardTriggerDevice('thermostat_mode_changed').register();
+    this.flowTriggerThermostatDemandChanged = new Homey.FlowCardTriggerDevice('itho_zone_demand_changed').register();
 
     new Homey.FlowCardCondition('thermostat_mode_is').register().registerRunListener(async (args, state) => {
       return (args.device.getCapabilityValue('thermostat_mode') == args.thermostat_mode);
+    });
+    new Homey.FlowCardCondition('thermostat_zone_demand_is').register().registerRunListener(async (args, state) => {
+      return (args.device.getCapabilityValue('itho_zone_demand') == args.itho_zone_demand);
+    });
+    new Homey.FlowCardCondition('thermostat_override_mode_is').register().registerRunListener(async (args, state) => {
+      return (args.device.getCapabilityValue('itho_override_mode') == args.itho_override_mode);
     });
 
     new Homey.FlowCardAction('set_thermostat_mode').register().registerRunListener(async (args, state) => {
@@ -20,6 +27,11 @@ class ThermostatDriver extends Homey.Driver {
       args.device.setCapabilityValue('thermostat_mode', args.thermostat_mode);
       return args.device.setThermostatMode(args.thermostat_mode);
     });
+    new Homey.FlowCardAction('set_override_mode').register().registerRunListener(async (args, state) => {
+      console.log('setCapabilityValue(', 'itho_override_mode', args.itho_override_mode);
+      args.device.setCapabilityValue('itho_override_mode', args.itho_override_mode);
+      return args.device.setOverrideMode(args.itho_override_mode);
+    });    
   }
 
   onPair(socket) {

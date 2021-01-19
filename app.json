@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -57,6 +57,13 @@
     "fan_speed": {
       "type": "enum",
       "values": [
+        {
+          "id": "Away",
+          "title": {
+            "en": "Away (Off)",
+            "nl": "Van huis (Uit)"
+          }
+        },
         {
           "id": "Low",
           "title": {
@@ -128,7 +135,8 @@
       "step": 1,
       "title": {
         "en": "heat demand",
-        "nl": "warmte vraag"
+        "nl": "warmte vraag",
+        "de": "Wärmebedarf"
       },
       "getable": true,
       "setable": false,
@@ -138,7 +146,8 @@
       "insights": true,
       "insightsTitleTrue": {
         "en": "heat demand",
-        "nl": "warmte vraag"
+        "nl": "warmte vraag",
+        "de": "Wärmebedarf"
       }
     },
     "itho_override_mode": {
@@ -420,6 +429,35 @@
         ]
       },
       {
+        "id": "itho_zone_demand_changed",
+        "title": {
+          "en": "Thermostat heat demand has changed",
+          "nl": "Thermostaat warmte vraag is veranderd",
+          "de": "Thermostat Wärmebedarf hat sich geändert"
+        },
+        "tokens": [
+          {
+            "name": "demand",
+            "type": "number",
+            "title": {
+              "en": "demand",
+              "nl": "vraag",
+              "de": "Frage"
+            },
+            "example": {
+              "en": "30"
+            }
+          }
+        ],
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=thermostat"
+          }
+        ]
+      },
+      {
         "id": "fan_speed_changed",
         "title": {
           "en": "Fan speed has changed",
@@ -476,6 +514,13 @@
             "name": "fan_speed",
             "type": "dropdown",
             "values": [
+              {
+                "id": "Away",
+                "title": {
+                  "en": "Away (Off)",
+                  "nl": "Van huis (Uit)"
+                }
+              },
               {
                 "id": "Low",
                 "title": {
@@ -570,6 +615,82 @@
             ]
           }
         ]
+      },
+      {
+        "id": "thermostat_zone_demand_is",
+        "title": {
+          "en": "Thermostat heat demand !{{is|isn't}}",
+          "nl": "Thermostaat warmtevraag !{{is|is niet}}",
+          "de": "Thermostat Wärmebedarf !{{ist|ist nicht}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=thermostat"
+          },
+          {
+            "name": "zone_demand",
+            "type": "number",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "placeholder": {
+              "en": "Set a value",
+              "nl": "Geef een waarde op",
+              "de": "Bitte einen Wert eingeben"
+            }
+          }
+        ]
+      },
+      {
+        "id": "thermostat_override_mode_is",
+        "title": {
+          "en": "Thermostat override mode !{{is|isn't}}",
+          "nl": "Thermostaat Klokprogramma mode !{{is|is niet}}",
+          "de": "Thermostat Uhrprogramm modus !{{ist|ist nicht}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=thermostat"
+          },
+          {
+            "name": "itho_override_mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Scheduled",
+                "title": {
+                  "en": "Scheduled",
+                  "nl": "Schema"
+                }
+              },
+              {
+                "id": "Temporary",
+                "title": {
+                  "en": "Temporary",
+                  "nl": "Tijdelijk"
+                }
+              },
+              {
+                "id": "Permanent",
+                "title": {
+                  "en": "Permanent",
+                  "nl": "Permanent"
+                }
+              },
+              {
+                "id": "EndTime",
+                "title": {
+                  "en": "EndTime",
+                  "nl": "Eindtijd"
+                }
+              }
+            ]
+          }
+        ]
       }
     ],
     "actions": [
@@ -588,6 +709,13 @@
             "name": "speed",
             "type": "dropdown",
             "values": [
+              {
+                "id": "Away",
+                "title": {
+                  "en": "Away (Off)",
+                  "nl": "Van huis (Uit)"
+                }
+              },
               {
                 "id": "Low",
                 "title": {
@@ -644,11 +772,9 @@
       {
         "id": "set_thermostat_mode",
         "title": {
-          "en": "Set the mode",
-          "nl": "Stel de modus in",
-          "de": "Modus setzen",
-          "fr": "Définir le mode",
-          "it": "Imposta la modalità"
+          "en": "Set the thermostat mode",
+          "nl": "Stel de thermostaat modus in",
+          "de": "Thermostat Modus setzen"
         },
         "args": [
           {
@@ -661,7 +787,56 @@
             "type": "dropdown",
             "values": [
               {
-                "id": "heat",
+                "id": "Scheduled",
+                "title": {
+                  "en": "Scheduled",
+                  "nl": "Schema"
+                }
+              },
+              {
+                "id": "Temporary",
+                "title": {
+                  "en": "Temporary",
+                  "nl": "Tijdelijk"
+                }
+              },
+              {
+                "id": "Permanent",
+                "title": {
+                  "en": "Permanent",
+                  "nl": "Permanent"
+                }
+              },
+              {
+                "id": "EndTime",
+                "title": {
+                  "en": "EndTime",
+                  "nl": "Eindtijd"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "set_override_mode",
+        "title": {
+          "en": "Set the scheduled mode",
+          "nl": "Stel de klokprogramma mode in",
+          "de": "Scheduled Modus setzen"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=thermostat"
+          },
+          {
+            "name": "itho_override_mode",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "Scheduled",
                 "title": {
                   "en": "Heat",
                   "nl": "Verwarmen",
