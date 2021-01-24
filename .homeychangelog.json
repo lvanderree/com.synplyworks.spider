@@ -40,5 +40,8 @@
   },
   "0.1.0": {
     "en": "initial release to control itho fan"
+  },
+  "0.6.1": {
+    "en": "fixed unit for meaure_power, added labels for production"
   }
 }

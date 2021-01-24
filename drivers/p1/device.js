@@ -65,9 +65,9 @@ class P1 extends Homey.Device {
 
     
     this.setCapabilityValue('meter_power', power_usage.meterIndexCurrentValue / 1000);
-    this.setCapabilityValue('measure_power', power_usage.currentUsage / 1000);
+    this.setCapabilityValue('measure_power', power_usage.currentUsage);
     this.setCapabilityValue('meter_power.produced', -1 * power_production.meterIndexCurrentValue / 1000);
-    this.setCapabilityValue('measure_power.produced', -1 * power_production.currentProduction / 1000);
+    this.setCapabilityValue('measure_power.produced', -1 * power_production.currentUsage);
         
       
     });

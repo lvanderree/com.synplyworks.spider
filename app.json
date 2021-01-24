@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -403,6 +403,28 @@
       ],
       "energy": {
         "cumulative": true
+      },
+      "capabilitiesOptions" : {
+        "measure_power.produced":{
+          "title": {
+            "en": "Power production",
+            "nl": "Vermogens opwekking"
+          },
+          "desc": {
+            "en": "Power production in Watt (W)",
+            "nl": "Vermogens opwekking in Watt (W)"
+          }
+        },
+        "meter_power.produced": {
+          "title": {
+            "en": "Power produced",
+            "nl": "Energie opgewekt"
+          },
+          "desc": {
+            "en": "Power produced (kWh)",
+            "nl": "Vermogen opgewekt (kWh)"
+          }
+        }
       },
       "settings": [
         {
