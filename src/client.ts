@@ -7,13 +7,13 @@ const URLSearchParams = require('url').URLSearchParams;
 
 // THANKS TO: https://github.com/peternijssen/spiderpy/
 const REFRESH_RATE = 120;
-const BASE_URL = 'https://mijn.ithodaalderop.nl';
+export const BASE_URL = 'https://mijn.ithodaalderop.nl';
   
-const AUTHENTICATE_URL = BASE_URL + '/api/tokens';
-const DEVICES_URL = BASE_URL + '/api/devices';
-const ENERGY_DEVICES_URL = BASE_URL + '/api/devices/energy/energyDevices';
-const POWER_PLUGS_URL = BASE_URL + '/api/devices/energy/smartPlugs';
-const ENERGY_MONITORING_URL = BASE_URL + '/api/monitoring/15/devices';
+export const AUTHENTICATE_URL = BASE_URL + '/api/tokens';
+export const DEVICES_URL = BASE_URL + '/api/devices';
+export const ENERGY_DEVICES_URL = BASE_URL + '/api/devices/energy/energyDevices';
+export const POWER_PLUGS_URL = BASE_URL + '/api/devices/energy/smartPlugs';
+export const ENERGY_MONITORING_URL = BASE_URL + '/api/monitoring/15/devices';
 
 const headers = {
   'Content-Type': 'application/x-www-form-urlencoded',
@@ -43,6 +43,14 @@ export interface Device {
   _etag: string;
   bdrSetting: number;
 }
+export interface EnergyDevice extends Device {
+  isCentralMeter: boolean;
+  isLiveUsageEnabled: boolean;
+  isSwitchedOn: boolean;
+  isProducer: boolean;
+  meterValue: number;
+  meterTimestamp: string;
+}
 
 export class Client {
   protected username : string;
@@ -65,9 +73,12 @@ export class Client {
     }
   }
 
-  async getDevices() : Promise<Device[]> {
+  async getDevices(url? : string) : Promise<Device[] | EnergyDevice[]> {
 
     // return stubbedDevices;
+    if (!url) {
+      url = DEVICES_URL;
+    }
 
     if (!this.isAuthenticated()) {
       await this.login();
@@ -78,9 +89,9 @@ export class Client {
     }, headers);
     deviceHeaders["Content-Type"] = 'application/json';
 
-    // console.log('getting devices from: ', DEVICES_URL);
+    // console.log('getting devices from: ', url);
 
-    const response = await fetch(DEVICES_URL, {
+    const response = await fetch(url, {
       method: 'GET',
       headers: deviceHeaders,
     });

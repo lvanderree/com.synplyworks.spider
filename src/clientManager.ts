@@ -1,25 +1,25 @@
-import { Device, Client } from "./client";
+import { Device, EnergyDevice, Client, ENERGY_DEVICES_URL } from "./client";
 
 export class ClientManager {
   protected client: Client;
 
-  protected devices: Device[] = undefined; 
+  protected devices: Device[] | EnergyDevice[] = undefined; 
   updateAt: number;
 
   constructor(client: Client) {
     this.client = client;
   }
 
-  async getDevices() : Promise<Device[]> {
+  async getDevices(url?: string) : Promise<Device[] | EnergyDevice[]> {
     // the manager caches devices for 30s, to avoid flooding Itho
     if ((this.devices == undefined) || ((Date.now() - this.updateAt) > 30000))
     {
-      this.devices = await this.client.getDevices();
+      this.devices = await this.client.getDevices(url);
       this.updateAt = Date.now();
       // todo loop through devices and create object with key=device.id 
     }
     
-    return this.devices; 
+    return this.devices;
   }
 
   getDevice(id: string) : Promise<Device> {
@@ -54,8 +54,8 @@ export class ClientManager {
         if (devices instanceof Array) {
           const thermostats = devices.filter((d) => {
             return (d.type = 105) 
-            && (d.manufacturer == 'spider') 
-            && d.properties.find(p => {return p.id == 'SetpointTemperature'})
+                   && (d.manufacturer == 'spider') 
+                   && d.properties.find(p => {return p.id == 'SetpointTemperature'})
           });
     
           return thermostats;
@@ -78,6 +78,38 @@ export class ClientManager {
         }
     
         return null;
+      });
+  }
+
+  getEnergyDevices() : Promise<EnergyDevice[]> {
+    return this.getDevices(ENERGY_DEVICES_URL)
+      .then(energyDevices => {
+        if (energyDevices instanceof Array) {
+          const devices = energyDevices.filter((d) => {
+            const e = d as EnergyDevice;
+            return (e.isSwitchedOn = true) 
+                   && (e.isOnline == true);
+          });
+          
+          return devices as EnergyDevice[];
+        }
+    
+        return [];
+      });
+  }
+
+  getCentralMeters() : Promise<EnergyDevice[]> {
+    return this.getEnergyDevices()
+      .then(energyDevices => {
+        if (energyDevices instanceof Array) {
+          const devices = energyDevices.filter((d) => {
+            return (d.isCentralMeter = true)
+          });
+    
+          return devices;
+        }
+    
+        return [];
       });
   }
 

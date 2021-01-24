@@ -1,4 +1,7 @@
 {
+  "0.6.0": {
+    "en": "Added extra the P1 power meter readings via the gateway"
+  },
   "0.5.0": {
     "en": "Added extra thermostat flow cards for changed zone_demand and override_mode, added hidden fan value Away and fixed an issue where room without thermostat was falsy returned"
   },

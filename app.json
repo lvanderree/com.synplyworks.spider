@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -13,7 +13,8 @@
     "nl": "Stuur je Itho Daalderop Spiders aan m.b.v. de gateway"
   },
   "category": [
-    "climate"
+    "climate",
+    "energy"
   ],
   "tags": {
     "en": [
@@ -21,7 +22,9 @@
       "itho",
       "daalderop",
       "fan",
-      "thermostat"
+      "thermostat",
+      "p1",
+      "smartmeter"
     ],
     "nl": [
       "spider",
@@ -29,7 +32,9 @@
       "daalderop",
       "fan",
       "ventilator",
-      "thermostaat"
+      "thermostaat",
+      "p1",
+      "slimmemeter"
     ]
   },
   "permissions": [],
@@ -380,6 +385,77 @@
       "images": {
         "large": "/drivers/thermostat/assets/images/itho-spider-large.png",
         "small": "/drivers/thermostat/assets/images/itho-spider-small.png"
+      }
+    },
+    {
+      "id": "p1",
+      "name": {
+        "en": "P1 Smartmeter",
+        "nl": "P1 Slimmemeter "
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_power",
+        "meter_power",
+        "measure_power.produced",
+        "meter_power.produced",
+        "meter_gas"
+      ],
+      "energy": {
+        "cumulative": true
+      },
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "mijn.ithodaalderop account",
+            "nl": "mijn.ithodaalderop account"
+          },
+          "children": [
+            {
+              "id": "username",
+              "type": "text",
+              "label": {
+                "en": "Username",
+                "nl": "Gebruikersnaam"
+              },
+              "value": ""
+            },
+            {
+              "id": "password",
+              "type": "password",
+              "label": {
+                "en": "Password",
+                "nl": "Wachtwoord"
+              },
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "pair": [
+        {
+          "id": "login",
+          "template": "login_credentials",
+          "options": {
+            "logo": "../../../assets/images/spiderlogo-small.png"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/p1/assets/images/smartmeter-large.png",
+        "small": "/drivers/p1/assets/images/smartmeter-small.png"
       }
     }
   ],
