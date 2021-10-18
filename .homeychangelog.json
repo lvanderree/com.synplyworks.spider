@@ -43,5 +43,8 @@
   },
   "0.6.1": {
     "en": "fixed unit for meaure_power, added labels for production"
+  },
+  "0.6.2": {
+    "en": "implemented new authentication Api, thanks to @peternijssen"
   }
 }
