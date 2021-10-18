@@ -7,8 +7,8 @@ const URLSearchParams = require('url').URLSearchParams;
 
 // THANKS TO: https://github.com/peternijssen/spiderpy/
 const REFRESH_RATE = 120;
-export const BASE_URL = 'https://mijn.ithodaalderop.nl';
-  
+export const BASE_URL = 'https://spider-api.ithodaalderop.nl';
+
 export const AUTHENTICATE_URL = BASE_URL + '/api/tokens';
 export const DEVICES_URL = BASE_URL + '/api/devices';
 export const ENERGY_DEVICES_URL = BASE_URL + '/api/devices/energy/energyDevices';
@@ -18,7 +18,7 @@ export const ENERGY_MONITORING_URL = BASE_URL + '/api/monitoring/15/devices';
 const headers = {
   'Content-Type': 'application/x-www-form-urlencoded',
   'X-Client-Platform': 'android-phone',
-  'X-Client-Version': '1.5.3 (3561)',
+  'X-Client-Version': '1.5.9 (3611)',
   'X-Client-Library': 'SpiderJS'
 };
 
@@ -110,7 +110,7 @@ export class Client {
   }
 
   /**
-   * 
+   *
    * @param device the device to push the update for
    * @returns the device state after the update call
    */
@@ -148,10 +148,18 @@ export class Client {
   protected getUnixTimestampSeconds = () : number => {
     return Math.round(new Date().getTime() / 1000);
   };
-  
-  protected async login() : Promise<boolean> {    
+
+  protected convertToHex = (str: string) : string => {
+    var hex = '';
+    for (var i = 0; i < str.length; i++) {
+      hex += '' + str.charCodeAt(i).toString(16);
+    }
+    return hex;
+  };
+
+  protected async login() : Promise<boolean> {
     const form = new URLSearchParams();
-    form.append('username', this.username);
+    form.append('username', this.convertToHex(this.username));
     form.append('password', this.password);
     form.append('grant_type', 'password');
 
@@ -159,7 +167,7 @@ export class Client {
 
     const response = await fetch(AUTHENTICATE_URL, {
       method: 'POST',
-      body: form, 
+      body: form,
       headers: headers,
     });
 
