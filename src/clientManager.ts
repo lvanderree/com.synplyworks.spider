@@ -1,9 +1,9 @@
-import { Device, EnergyDevice, Client, ENERGY_DEVICES_URL } from "./client";
+import { Device, EnergyDevice, Client, ENERGY_DEVICES_URL, DEVICES_URL } from "./client";
 
 export class ClientManager {
   protected client: Client;
 
-  protected devices: Device[] | EnergyDevice[] = undefined; 
+  protected devices: Device[] | EnergyDevice[] = undefined;
   updateAt: number;
 
   constructor(client: Client) {
@@ -16,9 +16,9 @@ export class ClientManager {
     {
       this.devices = await this.client.getDevices(url);
       this.updateAt = Date.now();
-      // todo loop through devices and create object with key=device.id 
+      // todo loop through devices and create object with key=device.id
     }
-    
+
     return this.devices;
   }
 
@@ -30,7 +30,7 @@ export class ClientManager {
             return (d.id == id)
           });
         }
-    
+
         return null;
       });
   }
@@ -40,10 +40,10 @@ export class ClientManager {
       .then(devices => {
         if (devices instanceof Array) {
           const thermostats = devices.filter((d) => {return d.type = 105});
-    
+
           return thermostats;
         }
-    
+
         return [];
       });
   }
@@ -53,14 +53,14 @@ export class ClientManager {
       .then(devices => {
         if (devices instanceof Array) {
           const thermostats = devices.filter((d) => {
-            return (d.type = 105) 
-                   && (d.manufacturer == 'spider') 
+            return (d.type = 105)
+                   && (d.manufacturer == 'spider')
                    && d.properties.find(p => {return p.id == 'SetpointTemperature'})
           });
-    
+
           return thermostats;
         }
-    
+
         return [];
       });
   }
@@ -70,30 +70,30 @@ export class ClientManager {
       .then(devices => {
         if (devices instanceof Array) {
           return devices.find(d => {
-            return (d.type = 105) 
+            return (d.type = 105)
                    && (d.manufacturer == 'spider')
-                   && d.properties.find(p => {return p.id == 'SetpointTemperature'}) 
+                   && d.properties.find(p => {return p.id == 'SetpointTemperature'})
                    && d.properties.find(p => {return p.id == 'FanSpeed'})
           });
         }
-    
+
         return null;
       });
   }
 
   getEnergyDevices() : Promise<EnergyDevice[]> {
-    return this.getDevices(ENERGY_DEVICES_URL)
+    return this.getDevices(DEVICES_URL)
       .then(energyDevices => {
         if (energyDevices instanceof Array) {
           const devices = energyDevices.filter((d) => {
             const e = d as EnergyDevice;
-            return (e.isSwitchedOn = true) 
+            return (e.isSwitchedOn = true)
                    && (e.isOnline == true);
           });
-          
+
           return devices as EnergyDevice[];
         }
-    
+
         return [];
       });
   }
@@ -105,17 +105,17 @@ export class ClientManager {
           const devices = energyDevices.filter((d) => {
             return (d.isCentralMeter = true)
           });
-    
+
           return devices;
         }
-    
+
         return [];
       });
   }
 
   /**
-   * 
-   * @param device 
+   *
+   * @param device
    * @param speed    Set the fanspeed. Either 'Away', 'Auto', 'Low', 'Medium', 'High', 'Boost 10', 'Boost 20', 'Boost 30'
    */
   async setFanSpeed(device: Device, speed: string) : Promise<Device> {
@@ -154,11 +154,11 @@ export class ClientManager {
 
   async setOperationMode(device: Device, mode: string) : Promise<Device> {
     const OperationMode = device.properties.find(p => p.id === 'OperationMode');
-    
+
     if (!OperationMode) {
       throw new Error(`device "${device.name}" has no OperationMode property`);
     }
-    
+
     OperationMode.status = mode.charAt(0).toUpperCase() + mode.slice(1).toLowerCase() ;;
     OperationMode.statusModified = true;
 
@@ -171,11 +171,11 @@ export class ClientManager {
 
   async setOverrideMode(device: Device, mode: string) : Promise<Device> {
     const OverrideMode = device.properties.find(p => p.id === 'OverrideMode');
-    
+
     if (!OverrideMode) {
       throw new Error(`device "${device.name}" has no OverrideMode property`);
     }
-    
+
     OverrideMode.status = mode;
     OverrideMode.statusModified = true;
 

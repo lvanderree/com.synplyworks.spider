@@ -1,6 +1,6 @@
 {
   "name": "com.synplyworks.spider",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "control your Itho Daalderop Spiders via its gateway",
   "main": "app.js",
   "directories": {

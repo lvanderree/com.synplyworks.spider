@@ -1,6 +1,6 @@
 {
   "id": "com.synplyworks.spider",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "compatibility": ">=2.0.0",
   "sdk": 2,
   "brandColor": "#1040a1",
@@ -404,8 +404,8 @@
       "energy": {
         "cumulative": true
       },
-      "capabilitiesOptions" : {
-        "measure_power.produced":{
+      "capabilitiesOptions": {
+        "measure_power.produced": {
           "title": {
             "en": "Power production",
             "nl": "Vermogens opwekking"

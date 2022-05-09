@@ -42,9 +42,12 @@
     "en": "initial release to control itho fan"
   },
   "0.6.1": {
-    "en": "fixed unit for meaure_power, added labels for production"
+    "en": "fixed unit for measure_power, added labels for production"
   },
   "0.6.2": {
     "en": "implemented new authentication Api, thanks to @peternijssen"
+  },
+  "0.7.0": {
+    "en": "getting devices via different endpoint, to support setups without spider"
   }
 }
