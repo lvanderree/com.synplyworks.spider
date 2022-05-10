@@ -1,13 +1,13 @@
 {
   "name": "com.synplyworks.spider",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "control your Itho Daalderop Spiders via its gateway",
   "main": "app.js",
   "directories": {
     "lib": "lib"
   },
   "dependencies": {
-    "node-fetch": "^2.6.5"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

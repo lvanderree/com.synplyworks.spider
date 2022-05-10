@@ -49,5 +49,8 @@
   },
   "0.7.0": {
     "en": "getting devices via different endpoint, to support setups without spider"
+  },
+  "0.7.1": {
+    "en": "upgrade dependencies"
   }
 }
